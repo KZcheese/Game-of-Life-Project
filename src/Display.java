@@ -12,7 +12,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -22,16 +22,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
 public class Display extends JFrame implements ActionListener, ChangeListener,
-		MouseListener {
+		MouseMotionListener {
 	/*
-	 * Contains a toolBar JPanel with multiple JButtons, a JSlider, JTextFields, and a JCheckBox for controlling the game.
-	 * Contains a board BoardPanel, which is used to display the game board and allow the user to individually set cells as alive or dead.
+	 * Contains a toolBar JPanel with multiple JButtons, a JSlider, JTextFields,
+	 * and a JCheckBox for controlling the game. Contains a board BoardPanel,
+	 * which is used to display the game board and allow the user to
+	 * individually set cells as alive or dead.
 	 */
 	private int speed = 10, rows = 45, cols = 90, spotSize = 10;
 	private boolean isPlaying = false;
@@ -85,7 +88,7 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 		toolBar.add(grid);
 		board.setPreferredSize(new Dimension(cols * spotSize, rows * spotSize));
 		board.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0), 1));
-		board.addMouseListener(this);
+		board.addMouseMotionListener(this);
 		board.setBackground(new Color(255, 255, 255));
 		this.setTitle(title);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -99,7 +102,8 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 	}
 
 	/*
-	 * Takes ActionCommands from the JButtons and the JTextbox in toolBar and applies respective actions.
+	 * Takes ActionCommands from the JButtons and the JTextbox in toolBar and
+	 * applies respective actions.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -131,7 +135,8 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 	}
 
 	/*
-	 * Detects if the JSlider has changed and sets the speed value and the number in speedNum accordingly.
+	 * Detects if the JSlider has changed and sets the speed value and the
+	 * number in speedNum accordingly.
 	 */
 	@Override
 	public void stateChanged(ChangeEvent e) {
@@ -146,42 +151,6 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	/*
-	 * Detects if the mouse has been clicked in board and sets the clicked spot to be alive if dead, or dead if alive.
-	 */
-	@Override
-	public void mousePressed(MouseEvent e) {
-		if (board.contains(e.getX(), e.getY())) {
-			int row = (e.getY()) / 10;
-			int col = (e.getX()) / 10;
-			if (!game.isAlive(row, col))
-				game.set(row, col, true);
-			else
-				game.set(row, col, false);
-			board.repaint(col * spotSize, row * spotSize, spotSize, spotSize);
-		}
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
 	/*
 	 * Creates new Display object.
 	 */
@@ -190,7 +159,8 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 	}
 
 	/*
-	 * Used to override the paintComponment in JPanel to display alive and dead cells along with the grid when turned on.
+	 * Used to override the paintComponment in JPanel to display alive and dead
+	 * cells along with the grid when turned on.
 	 */
 	private class BoardPanel extends JPanel {
 		public void paintComponent(Graphics g) {
@@ -206,5 +176,24 @@ public class Display extends JFrame implements ActionListener, ChangeListener,
 								spotSize);
 				}
 		}
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if (board.contains(e.getX(), e.getY())) {
+			int row = (e.getY()) / spotSize;
+			int col = (e.getX()) / spotSize;
+			if (SwingUtilities.isLeftMouseButton(e) && !game.isAlive(row, col))
+				game.set(row, col, true);
+			else if (SwingUtilities.isRightMouseButton(e))
+				game.set(row, col, false);
+			board.repaint(col * spotSize, row * spotSize, spotSize, spotSize);
+		}
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }

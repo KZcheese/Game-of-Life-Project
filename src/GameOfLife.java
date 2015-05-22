@@ -7,21 +7,23 @@ import java.util.ArrayList;
 
 public class GameOfLife {
 	/*
-	 * Contains a board currentGen that represents the current generation.
-	 * int genNum represents the number of generations that have passed. Starts at 0.
-	 * gens contains all previous Board states in the game.
-	 * Alive cells are represented as 1s, and dead cells are represented as 0s. Any value above 1 is considered alive.
+	 * Contains a board currentGen that represents the current generation. int
+	 * genNum represents the number of generations that have passed. Starts at
+	 * 0. gens contains all previous Board states in the game. Alive cells are
+	 * represented as 1s, and dead cells are represented as 0s. Any value above
+	 * 1 is considered alive.
 	 */
 	private Board currentGen;
 	private int genNum = 0;
 	private ArrayList<Board> gens = new ArrayList<>();
 
 	/*
-	 * Constructor can take the following parameters:
-	 * An int row and int col - creates an empty generation 0 Board with dimensions row and col.
-	 * An int size - creates an empty square generation 0 Board with side length of size.
-	 * A 2D Array of ints - creates a generation 0 Board with all the values from the array.
-	 * A Board object - creates a generation 0 Board with all the values from the Board object.
+	 * Constructor can take the following parameters: An int row and int col -
+	 * creates an empty generation 0 Board with dimensions row and col. An int
+	 * size - creates an empty square generation 0 Board with side length of
+	 * size. A 2D Array of ints - creates a generation 0 Board with all the
+	 * values from the array. A Board object - creates a generation 0 Board with
+	 * all the values from the Board object.
 	 */
 	public GameOfLife(int rows, int cols) {
 		currentGen = new Board(rows, cols);
@@ -43,8 +45,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Checks to see if currentGen has a value greater than 0 at location (row, col) and returns a boolean.
-	 * If the location is not valid returns false;
+	 * Checks to see if currentGen has a value greater than 0 at location (row,
+	 * col) and returns a boolean. If the location is not valid returns false;
 	 */
 	public boolean isAlive(int row, int col) {
 		// System.out.println(row + ", " + col);
@@ -54,7 +56,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Counts the number of neighbors around location (row, col) on currentGen and returns it as an int.
+	 * Counts the number of neighbors around location (row, col) on currentGen
+	 * and returns it as an int.
 	 */
 	public int countNeighbors(int row, int col) {
 		int count = 0;
@@ -66,8 +69,9 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Decides whether the location (row, col) would be alive in the nextGeneration based on the number of neighbors.
-	 * Returns a boolean true in alive, and false if dead.
+	 * Decides whether the location (row, col) would be alive in the
+	 * nextGeneration based on the number of neighbors. Returns a boolean true
+	 * in alive, and false if dead.
 	 */
 	public boolean willLive(int row, int col) {
 		int neighbors = countNeighbors(row, col);
@@ -77,10 +81,9 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Replaces currentGen with a new Board object and sets it to the next generation of the game.
-	 * Stores the previous currentGen into gens.
-	 * Increments genNum by one.
-	 * If the board is empty, the method does nothing.
+	 * Replaces currentGen with a new Board object and sets it to the next
+	 * generation of the game. Stores the previous currentGen into gens.
+	 * Increments genNum by one. If the board is empty, the method does nothing.
 	 */
 	public void nextGeneration() {
 		if (!currentGen.isEmpty()) {
@@ -96,9 +99,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Reverts the currentGen back to the previous generation.
-	 * Removes the now currentGen board from gens.
-	 * Decrements genNum by one.
+	 * Reverts the currentGen back to the previous generation. Removes the now
+	 * currentGen board from gens. Decrements genNum by one.
 	 */
 	public void previousGeneration() {
 		if (genNum > 0) {
@@ -109,7 +111,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Sets the location (row, col) on currentGen to 1 if isAlive is true, and 0 if isAlive is false;
+	 * Sets the location (row, col) on currentGen to 1 if isAlive is true, and 0
+	 * if isAlive is false;
 	 */
 	public void set(int row, int col, boolean isAlive) {
 		if (isAlive)
@@ -119,7 +122,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Sets the location (row, col) on board to 1 if isAlive is true, and 0 if isAlive is false;
+	 * Sets the location (row, col) on board to 1 if isAlive is true, and 0 if
+	 * isAlive is false;
 	 */
 	public void set(int row, int col, boolean isAlive, Board board) {
 		if (isAlive)
@@ -136,7 +140,8 @@ public class GameOfLife {
 	}
 
 	/*
-	 * Returns the toString() of currentGen, along with labeled counters for the number of alive, dead, and total cells in a single String.
+	 * Returns the toString() of currentGen, along with labeled counters for the
+	 * number of alive, dead, and total cells in a single String.
 	 */
 	public String toString() {
 		String out = "";

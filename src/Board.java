@@ -5,17 +5,18 @@
  */
 public class Board {
 	/*
-	 * The board is stored in a rectangular int array called board.
-	 * rows and cols are used to represent board.length and board[0].length respectively.
-	 * rows and cols are final because the board is a set size that cannot change.
+	 * The board is stored in a rectangular int array called board. rows and
+	 * cols are used to represent board.length and board[0].length respectively.
+	 * rows and cols are final because the board is a set size that cannot
+	 * change.
 	 */
 	private int[][] board;
 	private final int rows;
 	private final int cols;
 
 	/*
-	 * Constructors can take in the following sets of parameters: 
-	 * An int row and int col value - makes an empty board with row rows and col columns. An
+	 * Constructors can take in the following sets of parameters: An int row and
+	 * int col value - makes an empty board with row rows and col columns. An
 	 * int size that makes an empty square board with length and width size. A
 	 * 2D int array - makes a board with all the values from the array.
 	 * Precondition: parameter array must be rectangular.
@@ -44,7 +45,8 @@ public class Board {
 	}
 
 	/*
-	 * Sets the value at location (row, col) to val and returns the value replaced.
+	 * Sets the value at location (row, col) to val and returns the value
+	 * replaced.
 	 */
 	public int set(int row, int col, int val) {
 		int replaced = get(row, col);
@@ -53,7 +55,8 @@ public class Board {
 	}
 
 	/*
-	 * Sets the value at location (row, col) to 0 and returns the value replaced.
+	 * Sets the value at location (row, col) to 0 and returns the value
+	 * replaced.
 	 */
 	public int remove(int row, int col) {
 		return set(row, col, 0);
@@ -78,8 +81,8 @@ public class Board {
 	}
 
 	/*
-	 * Checks to see if the point at (row, col), exists and return true if it does.
-	 * Returns false if value does not exist.
+	 * Checks to see if the point at (row, col), exists and return true if it
+	 * does. Returns false if value does not exist.
 	 */
 	public boolean isValid(int row, int col) {
 		try {
@@ -131,7 +134,7 @@ public class Board {
 		return isEmpty;
 	}
 
-	//Tests
+	// Tests
 	public static void main(String[] args) {
 		Board board = new Board(5, 6);
 		System.out.println(board);
